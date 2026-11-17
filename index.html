@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Có một điều anh muốn nói</title>
+    <style>
+      :root {
+        --bg: #ffe6ec;
+        --card: #fff8fa;
+        --ink: #4a1330;
+        --muted: #8a5a70;
+        --accent: #e0245e;
+        --accent-ink: #fff;
+        --soft: #ffd0dc;
+        color-scheme: light;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #2a0f1e;
+          --card: #3a1829;
+          --ink: #ffe6ee;
+          --muted: #d9a5ba;
+          --accent: #ff5c8a;
+          --accent-ink: #2a0f1e;
+          --soft: #55243b;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #2a0f1e;
+        --card: #3a1829;
+        --ink: #ffe6ee;
+        --muted: #d9a5ba;
+        --accent: #ff5c8a;
+        --accent-ink: #2a0f1e;
+        --soft: #55243b;
+        color-scheme: dark;
+      }
+      html {
+        height: 100%;
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        line-height: 1.6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-x: hidden;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 28px;
+        padding: 36px 28px;
+        width: 100%;
+        max-width: 440px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 14px 40px rgba(224, 36, 94, 0.14);
+      }
+      h1 {
+        font-family: Pacifico, "Be Vietnam Pro", cursive;
+        font-weight: 400;
+        font-size: 2.1rem;
+        line-height: 1.35;
+        margin: 0 0 14px;
+        color: var(--accent);
+      }
+      p {
+        margin: 0 0 14px;
+        color: var(--ink);
+        max-width: 60ch;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      label {
+        display: block;
+        text-align: left;
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin: 12px 0 4px;
+      }
+      input {
+        width: 100%;
+        font: inherit;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 2px solid var(--soft);
+        background: var(--bg);
+        color: var(--ink);
+      }
+      input:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      button {
+        font: inherit;
+        font-weight: 600;
+        border: 0;
+        border-radius: 999px;
+        padding: 13px 26px;
+        cursor: pointer;
+        background: var(--accent);
+        color: var(--accent-ink);
+        min-width: 140px;
+      }
+      button.alt {
+        background: var(--soft);
+        color: var(--ink);
+      }
+      .row {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 22px;
+        min-height: 52px;
+      }
+      .heart {
+        font-size: 3rem;
+        display: inline-block;
+        animation: beat 1.4s ease-in-out infinite;
+      }
+      @keyframes beat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(1.18);
+        }
+        30% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.12);
+        }
+      }
+      .hidden {
+        display: none;
+      }
+      .fly {
+        position: fixed;
+        pointer-events: none;
+        font-size: 1.6rem;
+        animation: up 2.6s ease-out forwards;
+        z-index: 5;
+      }
+      @keyframes up {
+        from {
+          transform: translateY(0) scale(0.6);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-110vh) scale(1.3);
+          opacity: 0;
+        }
+      }
+      #no {
+        transition: transform 0.25s;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .heart,
+        .fly {
+          animation: none;
+        }
+        #no {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <section id="setup">
+        <div class="heart" aria-hidden="true">💌</div>
+        <h1>Tạo lời tỏ tình</h1>
+        <p class="muted">Điền tên rồi gửi trang này cho người ấy.</p>
+        <label for="to">Tên người ấy</label>
+        <input id="to" value="Em A" maxlength="30" />
+        <label for="from">Tên của bạn</label>
+        <input id="from" value="Anh A" maxlength="30" />
+        <label for="msg">Lời nhắn</label>
+        <input
+          id="msg"
+          value="Anh thích em từ lâu rồi, và hôm nay anh muốn nói thật lòng."
+          maxlength="140"
+        />
+        <div class="row"><button id="start">Xem trang tỏ tình</button></div>
+      </section>
+
+      <section id="ask" class="hidden">
+        <div class="heart" aria-hidden="true">💗</div>
+        <h1 id="title"></h1>
+        <p id="text"></p>
+        <p><strong id="q"></strong></p>
+        <div class="row" id="btns">
+          <button id="yes">Đồng ý</button>
+          <button id="no" class="alt">Để suy nghĩ đã</button>
+        </div>
+        <p class="muted" id="hint"></p>
+      </section>
+
+      <section id="done" class="hidden">
+        <div class="heart" aria-hidden="true">🥰</div>
+        <h1>Cảm ơn <span id="n1"></span>!</h1>
+        <p id="reply"></p>
+        <div class="row"><button class="alt" id="back">Làm lại</button></div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        var $ = function (id) {
+          return document.getElementById(id);
+        };
+        var tries = 0;
+        var hints = [
+          "Thử lại nhé 😄",
+          "Nút này trơn lắm…",
+          "Sắp bắt được rồi!",
+          "Hay là bấm “Đồng ý” đi 🥺",
+        ];
+        function show(id) {
+          ["setup", "ask", "done"].forEach(function (s) {
+            $(s).classList.toggle("hidden", s !== id);
+          });
+        }
+        function names() {
+          return {
+            to: $("to").value.trim() || "Em",
+            from: $("from").value.trim() || "Anh",
+            msg: $("msg").value.trim(),
+          };
+        }
+
+        $("start").onclick = function () {
+          var n = names();
+          $("title").textContent = "Gửi " + n.to;
+          $("text").textContent = n.msg;
+          $("q").textContent = n.to + " làm người yêu của " + n.from + " nhé?";
+          tries = 0;
+          $("hint").textContent = "";
+          $("no").style.transform = "";
+          show("ask");
+        };
+
+        function dodge(e) {
+          if (e && e.preventDefault) e.preventDefault();
+          var b = $("no");
+          tries++;
+          var x =
+            (Math.random() - 0.5) * Math.min(window.innerWidth - 180, 260);
+          var y = (Math.random() - 0.5) * 160;
+          b.style.transform = "translate(" + x + "px," + y + "px)";
+          $("hint").textContent = hints[Math.min(tries - 1, hints.length - 1)];
+        }
+        $("no").addEventListener("mouseenter", dodge);
+        $("no").addEventListener("touchstart", dodge, { passive: false });
+        $("no").addEventListener("click", dodge);
+
+        $("yes").onclick = function () {
+          var n = names();
+          $("n1").textContent = n.to;
+          $("reply").textContent =
+            n.from +
+            " sẽ cố gắng làm " +
+            n.to +
+            " cười mỗi ngày. Từ hôm nay, mình là của nhau nhé.";
+          show("done");
+          var em = ["💖", "💗", "💕", "🌸", "✨", "💘"];
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+            return;
+          for (var i = 0; i < 28; i++) {
+            (function (i) {
+              setTimeout(function () {
+                var s = document.createElement("span");
+                s.className = "fly";
+                s.textContent = em[i % em.length];
+                s.style.left = Math.random() * 95 + "vw";
+                s.style.bottom = "-30px";
+                document.body.appendChild(s);
+                setTimeout(function () {
+                  s.remove();
+                }, 2700);
+              }, i * 90);
+            })(i);
+          }
+        };
+        $("back").onclick = function () {
+          show("setup");
+        };
+      })();
+    </script>
+  </body>
+</html>
